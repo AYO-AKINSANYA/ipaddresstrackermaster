@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <title>IP Address Tracker</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background:
+                linear-gradient(to bottom, transparent 33%, hsl(275, 100%, 97%) 33%),
+                url('./images/pattern-bg-desktop.png') no-repeat top center;
+            background-size: cover;
+            /* background-color: #f0f0f0; */
+        }
+
+        .tracker-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .tracker-container h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .search-box {
+            margin: 20px 0;
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 10px;
+            border: none;
+            background-color: #000;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .info-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            color: #000;
+            border-radius: 10px;
+            padding: 25px;
+            max-width: 900px;
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            width: 100%;
+            position: absolute;
+            top: 150px;
+            z-index: 2;
+        }
+
+        .info-item {
+            padding: 20px 60px 20px 20px;
+        }
+
+        .info-item:not(:last-child) {
+            border-right: 1px solid #ccc;
+        }
+
+        .info-item h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .info-item p {
+            margin: 5px 0 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .map {
+            /* margin-top: 100px; */
+            width: 100%;
+            height: 510px;
+            z-index: 1;
+            top: 68px;
+            position: relative;
+        }
+
+        .error-message {
+            color: red;
+            /* margin-top: 20px; */
+        }
+
+        /* .map {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        } */
+
+        @media screen and (min-width: 320px) and (max-width: 500px) {
+            body {
+                background:
+                    linear-gradient(to bottom, transparent 40%, hsl(275, 100%, 97%) 40%),
+                    url('./images/pattern-bg-mobile.png') no-repeat top center;
+                background-size: cover;
+            }
+
+            .info-container {
+                flex-direction: column;
+                justify-content: space-between;
+                width: 60%;
+                margin: 0;
+                max-width: 300px;
+                height: 200px;
+                /* max-width: 900px; */
+            }
+
+            .info-item {
+                /* padding: 20px 60px 20px 20px; */
+                /* text-align: left; */
+                padding: 0;
+            }
+
+            .info-item:not(:last-child) {
+                border-right: none
+            }
+
+            .info-item p {
+                margin: 0;
+                text-align: center;
+            }
+
+            .info-item {
+                padding: 0;
+            }
+
+            .info-item h3 {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tracker-container">
+        <h1>IP Address Tracker</h1>
+        <div class="search-box">
+            <input type="text" id="ip-input" placeholder="Search for any IP address or domain">
+            <button id="search-button"><img src="./images/icon-arrow.svg" alt=""></button>
+        </div>
+        <div class="info-container">
+            <div class="info-item">
+                <h3>IP ADDRESS</h3>
+                <p id="ip-address">192.212.174.101</p>
+            </div>
+            <div class="info-item">
+                <h3>LOCATION</h3>
+                <p id="location">Brooklyn, NY 10001</p>
+            </div>
+            <div class="info-item">
+                <h3>TIMEZONE</h3>
+                <p id="timezone">UTC -05:00</p>
+            </div>
+            <div class="info-item">
+                <h3>ISP</h3>
+                <p id="isp">SpaceX Starlink</p>
+            </div>
+        </div>
+        <div class="error-message" id="error-message"></div>
+    </div>
+    <div class="map" id="map"></div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
